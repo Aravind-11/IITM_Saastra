@@ -29,36 +29,16 @@ We expect our agent to maximize its expected return from the environment which i
 **Penalize** - 
 Passing the ball to the opponent is a move that our agent cannot afford to do, and self-goal is discouraged too so that our agent is not encouraged to move backward and treat that as a goal
 # Model
-#### For the model, we are using Proximal Policy Optimisation: Clipping version
-The figure shows in block diagram on how we are going to use the ppo model to train the agent to play the game in the multiplayer mode
-![image](https://user-images.githubusercontent.com/42345018/109605476-382a6c00-7b4b-11eb-9f23-dc3a18e46ea5.png)
-
-
-The blocks in the block diagram are explained below
-### The Network Bank: 
-This store’s previous versions of the agents to pull into the environment as opponents.
 
 ### The Proximal Policy Optimisation (PPO) engine:
 PPO, developed by OpenAI in 2017, is a state-of-the-art RL algorithm. It updates the current version of the ​network​ being trained and fires a ​callback​ that saves the network to the bank if the current version has outperformed previous versions.
 
-### The Environment:
-The base environment is any multiplayer game logic that you can dream up.
+### Method
+Two PPO models each for agent_A and agent_B are trained independently with a joint state space, independent action space and rewards. This idea is adopted from this [paper](https://proceedings.neurips.cc//paper/2020/file/3b2acfe2e38102074656ed938abf4ac3-Paper.pdf). 
 
-### The Self-play Wrapper:
-This​ ​converts the multiplayer base environment into a 1-player environment that can be learnt by the PPO engine.
-
-# The Self-play Wrapper
-The self-play wrapper performs two key functions:
-#### Handling opponents:
-On each reset of the environment, it loads random previous versions of the network as the next opponents for the agent to play against. It takes the turns of the opponents, by sampling from their policy networks.
-For example, the base opponent is loaded initially as Player 1 and Player 3 and the agent plays as Player 2. Player 1’s turn is taken automatically by sampling from the policy network output before handing back to the agent.
-
-#### Delayed Rewards
-It delays the return of the reward to the PPO agent, until the other agents have taken their turn.
-Suppose you are playing a 3-player card game such as whist. If you are the first player to play in the trick, then your action (playing a card) doesn’t immediately create any reward. You need to wait to see what the other two players play in order to know whether you won the trick or not. The self-play wrapper handles this delay, by following up the PPO agent action with all other required actions by opponents before returning any reward to the PPO agent being trained. 
+ 
 # References
-#### Self training
-https://medium.com/applied-data-science/how-to-train-ai-agents-to-play-multiplayer-games-using-self-play-deep-reinforcement-learning-247d0b440717\ 
+#### Training
 
 https://youtu.be/gqX8J38tESw?t=2999
 
