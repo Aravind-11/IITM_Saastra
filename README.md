@@ -34,7 +34,7 @@ Passing the ball to the opponent is a move that our agent cannot afford to do, a
 PPO, developed by OpenAI in 2017, is a state-of-the-art RL algorithm. It updates the current version of the ​network​ being trained and fires a ​callback​ that saves the network to the bank if the current version has outperformed previous versions.
 
 ### Method
-Two PPO models each for agent_A and agent_B are trained independently with a joint state space, independent action space and rewards. This idea is adopted from this [paper](https://proceedings.neurips.cc//paper/2020/file/3b2acfe2e38102074656ed938abf4ac3-Paper.pdf). 
+Two PPO models each for agent_A and agent_B are trained independently with a joint state space, independent action space and rewards. The idea is adopted from this [paper](https://proceedings.neurips.cc//paper/2020/file/3b2acfe2e38102074656ed938abf4ac3-Paper.pdf). 
 
  
 # References
